@@ -106,3 +106,13 @@ func TestCreateNewAddress(t *testing.T) {
 	Expect(err).To(BeNil())
 	Expect(res).To(Equal("tb1q7k0d4yyx253t9te92nrlkzvy88l72f38dwhu72"))
 }
+
+func TestGetUnusedAddress(t *testing.T) {
+	RegisterTestingT(t)
+	responseBody = `{"result": "tb1qnf5dx9d3swffc08qkrhfjxqyrc6yq8qrcx6d4m", "id": 5577006791947779410, "error": null}`
+	res, err := client.GetUnusedAddress()
+	<-requestChan
+
+	Expect(err).To(BeNil())
+	Expect(res).To(Equal("tb1qnf5dx9d3swffc08qkrhfjxqyrc6yq8qrcx6d4m"))
+}

@@ -35,3 +35,10 @@ func (c *Client) CreateNewAddress() (res string, err error) {
 	err = c.Call("createnewaddress", nil, &res)
 	return
 }
+
+// GetUnusedAddress returns the first unused address of the wallet, or None if all addresses are used
+// An address is considered as used if it has received a transaction, or if it is used in a payment request.
+func (c *Client) GetUnusedAddress() (res string, err error) {
+	err = c.Call("getunusedaddress", nil, &res)
+	return
+}

@@ -104,6 +104,7 @@ fmt.Println("Electrum version:", rpcResponse)
 | validateaddress  | ✅  |
 | getservers  | ✅  |
 | createnewaddress  | ✅  |
+| getunusedaddress  | ✅  |
 
 
 ## Contributing

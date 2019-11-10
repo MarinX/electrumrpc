@@ -103,6 +103,7 @@ fmt.Println("Electrum version:", rpcResponse)
 | getbalance  | ✅  |
 | validateaddress  | ✅  |
 | getservers  | ✅  |
+| createnewaddress  | ✅  |
 
 
 ## Contributing

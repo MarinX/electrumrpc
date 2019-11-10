@@ -29,3 +29,9 @@ func (c *Client) GetServers() (res map[string]Server, err error) {
 	err = c.Call("getservers", nil, &res)
 	return
 }
+
+// CreateNewAddress creates a new receiving address, beyond the gap limit of the wallet
+func (c *Client) CreateNewAddress() (res string, err error) {
+	err = c.Call("createnewaddress", nil, &res)
+	return
+}

@@ -96,3 +96,13 @@ func TestGetServers(t *testing.T) {
 		Expect(v.S).To(Equal("51002"))
 	}
 }
+
+func TestCreateNewAddress(t *testing.T) {
+	RegisterTestingT(t)
+	responseBody = `{"result": "tb1q7k0d4yyx253t9te92nrlkzvy88l72f38dwhu72", "id": 5577006791947779410, "error": null}`
+	res, err := client.CreateNewAddress()
+	<-requestChan
+
+	Expect(err).To(BeNil())
+	Expect(res).To(Equal("tb1q7k0d4yyx253t9te92nrlkzvy88l72f38dwhu72"))
+}

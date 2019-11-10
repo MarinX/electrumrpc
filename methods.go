@@ -42,3 +42,10 @@ func (c *Client) GetUnusedAddress() (res string, err error) {
 	err = c.Call("getunusedaddress", nil, &res)
 	return
 }
+
+// IsMine checks if address is in wallet.
+// Return true if and only address is in wallet
+func (c *Client) IsMine(address string) (res bool, err error) {
+	err = c.Call("ismine", address, &res)
+	return
+}

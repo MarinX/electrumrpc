@@ -116,3 +116,14 @@ func TestGetUnusedAddress(t *testing.T) {
 	Expect(err).To(BeNil())
 	Expect(res).To(Equal("tb1qnf5dx9d3swffc08qkrhfjxqyrc6yq8qrcx6d4m"))
 }
+
+func TestIsMine(t *testing.T) {
+	RegisterTestingT(t)
+	responseBody = `{"result": true, "id": 5577006791947779410, "error": null}`
+
+	res, err := client.IsMine("tb1qnf5dx9d3swffc08qkrhfjxqyrc6yq8qrcx6d4m")
+	<-requestChan
+
+	Expect(err).To(BeNil())
+	Expect(res).To(BeTrue())
+}

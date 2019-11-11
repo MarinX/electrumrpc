@@ -14,3 +14,10 @@ type Server struct {
 	Pruning string `json:"pruning"`
 	Version string `json:"version"`
 }
+
+// Transaction is bitcoin transaction model
+type Transaction struct {
+	Hex      string `json:"hex"`
+	Complete bool   `json:"complete"`
+	Final    bool   `json:"final"`
+}

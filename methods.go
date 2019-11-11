@@ -49,3 +49,9 @@ func (c *Client) IsMine(address string) (res bool, err error) {
 	err = c.Call("ismine", address, &res)
 	return
 }
+
+// GetTransaction retrieve a transaction by id
+func (c *Client) GetTransaction(txid string) (res Transaction, err error) {
+	err = c.Call("gettransaction", txid, &res)
+	return
+}

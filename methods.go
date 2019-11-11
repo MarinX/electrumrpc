@@ -55,3 +55,14 @@ func (c *Client) GetTransaction(txid string) (res Transaction, err error) {
 	err = c.Call("gettransaction", txid, &res)
 	return
 }
+
+// GetSeed returns the generation seed of your wallet
+func (c *Client) GetSeed(password string) (res string, err error) {
+	var pass *string
+	if len(password) > 0 {
+		pass = &password
+	}
+	// cannot pass empty string, we need to pass nil for none password wallet
+	err = c.Call("getseed", pass, &res)
+	return
+}

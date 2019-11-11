@@ -107,6 +107,7 @@ fmt.Println("Electrum version:", rpcResponse)
 | getunusedaddress  | ✅  |
 | ismine  | ✅  |
 | gettransaction  | ✅  |
+| getseed  | ✅  |
 
 
 ## Contributing

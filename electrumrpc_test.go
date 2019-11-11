@@ -140,3 +140,15 @@ func TestGetTransaction(t *testing.T) {
 	Expect(res.Final).To(BeTrue())
 	Expect(res.Hex).NotTo(BeEmpty())
 }
+
+func TestGetSeed(t *testing.T) {
+	RegisterTestingT(t)
+	responseBody = `{"result": "negative miracle small debris crime employ crash confirm inform unique pride hello", "id": 5577006791947779410, "error": null}`
+
+	res, err := client.GetSeed("")
+	<-requestChan
+
+	Expect(err).To(BeNil())
+	Expect(res).NotTo(BeEmpty())
+
+}

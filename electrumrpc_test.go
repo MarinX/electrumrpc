@@ -221,3 +221,35 @@ func TestClearRequests(t *testing.T) {
 	<-requestChan
 	Expect(err).To(BeNil())
 }
+
+func TestGetFeeRate(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": 150000, "id": 5577006791947779410, "error": null}`
+	fee, err := client.GetFeeRate(FeeMethodNone)
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(fee).To(Equal(uint64(150000)))
+}
+
+func TestGetRequest(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": {"time": 1574368761, "amount": 1000000, "exp": null, 
+	"address": "tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc", "memo": "Hello World",
+	"id": "4ed1660106", "URI": "bitcoin:tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc?amount=0.01", 
+	"status": "Pending", "amount (BTC)": "0.01"}, "id": 5577006791947779410, "error": null}`
+
+	res, err := client.GetRequest("1BTCAddress")
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res.Address).To(Equal("tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc"))
+	Expect(res.Time).To(Equal(uint64(1574368761)))
+	Expect(res.Amount).To(Equal(uint64(1000000)))
+	Expect(res.Expiration).To(Equal(uint64(0)))
+	Expect(res.Memo).To(Equal("Hello World"))
+	Expect(res.ID).To(Equal("4ed1660106"))
+	Expect(res.URI).To(Equal("bitcoin:tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc?amount=0.01"))
+	Expect(res.Status).To(Equal("Pending"))
+	Expect(res.AmountBTC).To(Equal("0.01"))
+}

@@ -1,5 +1,19 @@
 package electrumrpc
 
+// FeeMethod is fee estimation method
+type FeeMethod string
+
+const (
+	// FeeMethodNone is for none
+	FeeMethodNone FeeMethod = ""
+	// FeeMethodStatic is for static
+	FeeMethodStatic FeeMethod = "static"
+	// FeeMethodEta is for eta
+	FeeMethodEta FeeMethod = "eta"
+	// FeeMethodMempool is for mempool
+	FeeMethodMempool FeeMethod = "mempool"
+)
+
 // Balance model
 type Balance struct {
 	Confirmed   string `json:"confirmed"`

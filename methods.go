@@ -93,6 +93,12 @@ func (c *Client) RemoveRequest(btcAddress string) (res bool, err error) {
 	return
 }
 
+// GetRequest returns a payment request
+func (c *Client) GetRequest(btcAddress string) (res PaymentRequest, err error) {
+	err = c.Call("getrequest", btcAddress, &res)
+	return
+}
+
 // ClearRequests removes all payment requests
 func (c *Client) ClearRequests() (err error) {
 	err = c.Call("clearrequests", nil, nil)
@@ -101,5 +107,16 @@ func (c *Client) ClearRequests() (err error) {
 	if err != nil && err.Error() == "result is null" {
 		err = nil
 	}
+	return
+}
+
+// GetFeeRate returns current suggested fee rate (in sat/kvByte), according to config
+// settings or supplied parameters
+func (c *Client) GetFeeRate(feeMethod FeeMethod) (res uint64, err error) {
+	if feeMethod == "" {
+		err = c.Call("getfeerate", nil, &res)
+		return
+	}
+	err = c.Call("getfeerate", feeMethod, &res)
 	return
 }

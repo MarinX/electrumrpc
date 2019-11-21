@@ -66,3 +66,40 @@ func (c *Client) GetSeed(password string) (res string, err error) {
 	err = c.Call("getseed", pass, &res)
 	return
 }
+
+// ListAdddresses returns the list of all addresses in your wallet
+// @TODO, support optional arguments to filter the results
+func (c *Client) ListAdddresses() (res []string, err error) {
+	err = c.Call("listaddresses", nil, &res)
+	return
+}
+
+// AddRequest creates a payment request, using the first unused address of the wallet
+func (c *Client) AddRequest(amount float64, memo string, expiration uint64) (res PaymentRequest, err error) {
+	err = c.Call("addrequest", []interface{}{amount, memo, expiration}, &res)
+	return
+}
+
+// ListRequest lists the payment requests you made
+func (c *Client) ListRequest(pending, expired, paid bool) (res []PaymentRequest, err error) {
+	err = c.Call("listrequests", []bool{pending, expired, paid}, &res)
+	return
+}
+
+// RemoveRequest removes a payment request
+// Returns true if removal was successful
+func (c *Client) RemoveRequest(btcAddress string) (res bool, err error) {
+	err = c.Call("rmrequest", btcAddress, &res)
+	return
+}
+
+// ClearRequests removes all payment requests
+func (c *Client) ClearRequests() (err error) {
+	err = c.Call("clearrequests", nil, nil)
+	// invalid JSON RPC response
+	// check if result is null which is valid response
+	if err != nil && err.Error() == "result is null" {
+		err = nil
+	}
+	return
+}

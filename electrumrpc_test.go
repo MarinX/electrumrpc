@@ -152,3 +152,72 @@ func TestGetSeed(t *testing.T) {
 	Expect(res).NotTo(BeEmpty())
 
 }
+
+func TestListAdddresses(t *testing.T) {
+	RegisterTestingT(t)
+	responseBody = `{"result": ["tb1qnf5dx9d3swffc08qkrhfjxqyrc6yq8qrcx6d4m"], "id": 5577006791947779410, "error": null}`
+
+	res, err := client.ListAdddresses()
+	<-requestChan
+
+	Expect(err).To(BeNil())
+	Expect(res).NotTo(BeEmpty())
+}
+
+func TestAddRequest(t *testing.T) {
+	RegisterTestingT(t)
+	responseBody = `{"result": {"time": 1574334715, "amount": 1000000, "exp": 0, 
+	"address": "tb1q5wc2v5vxnd80ntk7zu4c0vx6nm87c36ugv3tvw", "memo": "Hello World", "id": "8887c627fd", 
+	"URI": "bitcoin:tb1q5wc2v5vxnd80ntk7zu4c0vx6nm87c36ugv3tvw?amount=0.01", "status": "Pending", 
+	"amount (BTC)": "0.01"}, "id": 5577006791947779410, "error": null}`
+
+	res, err := client.AddRequest(0.01, "Hello World", 0)
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res.Address).To(Equal("tb1q5wc2v5vxnd80ntk7zu4c0vx6nm87c36ugv3tvw"))
+	Expect(res.Time).To(Equal(uint64(1574334715)))
+	Expect(res.Amount).To(Equal(uint64(1000000)))
+	Expect(res.Expiration).To(Equal(uint64(0)))
+	Expect(res.Memo).To(Equal("Hello World"))
+	Expect(res.ID).To(Equal("8887c627fd"))
+	Expect(res.URI).To(Equal("bitcoin:tb1q5wc2v5vxnd80ntk7zu4c0vx6nm87c36ugv3tvw?amount=0.01"))
+	Expect(res.Status).To(Equal("Pending"))
+	Expect(res.AmountBTC).To(Equal("0.01"))
+
+}
+
+func TestListRequests(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": [], "id": 5577006791947779410, "error": null}`
+	res, err := client.ListRequest(false, false, true)
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res).To(BeEmpty())
+
+	responseBody = `{"result": [{"time": 1574330152, "amount": 1000000, "exp": null, "address": "tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc", "memo": "",
+	"id": "a1c5040c87", "URI": "bitcoin:tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc?amount=0.01", "status": "Pending", "amount (BTC)": "0.01"}], "id": 5577006791947779410, "error": null}`
+	res, err = client.ListRequest(false, false, false)
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res).NotTo(BeEmpty())
+}
+
+func TestRemoveRequest(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": true, "id": 5577006791947779410, "error": null}`
+	res, err := client.RemoveRequest("1BTCAddress")
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res).To(Equal(true))
+}
+
+func TestClearRequests(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": null, "id": 5577006791947779410, "error": null}`
+	err := client.ClearRequests()
+	<-requestChan
+	Expect(err).To(BeNil())
+}

@@ -108,10 +108,15 @@ fmt.Println("Electrum version:", rpcResponse)
 | ismine  | ✅  |
 | gettransaction  | ✅  |
 | getseed  | ✅  |
-
+| listaddresses  | ✅  |
+| addrequest  | ✅  |
+| rmrequest  | ✅  |
+| clearrequests  | ✅  |
 
 ## Contributing
 PR's are welcome. Please read [CONTRIBUTING.md](https://github.com/MarinX/electrumrpc/blob/master/CONTRIBUTING.md) for more info
 
 ## License
 MIT
+
+2NDJS21DLHUyypBWJXvG1NTUoQt4g1WwzgA

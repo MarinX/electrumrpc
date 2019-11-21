@@ -21,3 +21,16 @@ type Transaction struct {
 	Complete bool   `json:"complete"`
 	Final    bool   `json:"final"`
 }
+
+// PaymentRequest is electrum payment request model
+type PaymentRequest struct {
+	ID         string `json:"id"`
+	Amount     uint64 `json:"amount"`
+	Expiration uint64 `json:"exp"`
+	Address    string `json:"address"`
+	Memo       string `json:"memo"`
+	URI        string `json:"URI"`
+	Status     string `json:"status"`
+	AmountBTC  string `json:"amount (BTC)"`
+	Time       uint64 `json:"time"`
+}

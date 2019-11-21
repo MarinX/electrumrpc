@@ -118,5 +118,3 @@ PR's are welcome. Please read [CONTRIBUTING.md](https://github.com/MarinX/electr
 
 ## License
 MIT
-
-2NDJS21DLHUyypBWJXvG1NTUoQt4g1WwzgA

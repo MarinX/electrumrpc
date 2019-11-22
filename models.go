@@ -48,3 +48,17 @@ type PaymentRequest struct {
 	AmountBTC  string `json:"amount (BTC)"`
 	Time       uint64 `json:"time"`
 }
+
+// SignMessageRequest is model for signmessage method
+type SignMessageRequest struct {
+	Address  string `json:"address"`
+	Message  string `json:"message"`
+	Password string `json:"password,omitempty"`
+}
+
+// VerifyMessageRequest is model for verifymessage method
+type VerifyMessageRequest struct {
+	Address   string `json:"address"`
+	Signature string `json:"signature"`
+	Message   string `json:"message"`
+}

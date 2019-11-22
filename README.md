@@ -114,6 +114,8 @@ fmt.Println("Electrum version:", rpcResponse)
 | clearrequests  | ✅  |
 | getrequest  | ✅  |
 | getfeerate  | ✅  |
+| signmessage  | ✅  |
+| verifymessage  | ✅  |
 
 ## Contributing
 PR's are welcome. Please read [CONTRIBUTING.md](https://github.com/MarinX/electrumrpc/blob/master/CONTRIBUTING.md) for more info

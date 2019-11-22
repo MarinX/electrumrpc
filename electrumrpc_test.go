@@ -253,3 +253,28 @@ func TestGetRequest(t *testing.T) {
 	Expect(res.Status).To(Equal("Pending"))
 	Expect(res.AmountBTC).To(Equal("0.01"))
 }
+
+func TestSignMessage(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": "IFflhj2MLLiZXWDeA5rz8eZ2nK2JANGhAoJxO0SEMh/2OqtyBQWm4Jxk1JQPYhzOd1NT9ROA6HWxUAEsvE2BEF8=", "id": 5577006791947779410, "error": null}`
+
+	res, err := client.SignMessage("tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc", "Hello")
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res).To(Equal("IFflhj2MLLiZXWDeA5rz8eZ2nK2JANGhAoJxO0SEMh/2OqtyBQWm4Jxk1JQPYhzOd1NT9ROA6HWxUAEsvE2BEF8="))
+}
+
+func TestVerifyMessage(t *testing.T) {
+	RegisterTestingT(t)
+
+	responseBody = `{"result": true, "id": 5577006791947779410, "error": null}`
+	res, err := client.VerifyMessage(
+		"tb1qhmar3z87xjldldr2e8m59xldxn2vg2xdg37ssc",
+		"IFflhj2MLLiZXWDeA5rz8eZ2nK2JANGhAoJxO0SEMh/2OqtyBQWm4Jxk1JQPYhzOd1NT9ROA6HWxUAEsvE2BEF8=",
+		"Hello",
+	)
+	<-requestChan
+	Expect(err).To(BeNil())
+	Expect(res).To(BeTrue())
+}

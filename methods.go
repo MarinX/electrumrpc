@@ -120,3 +120,24 @@ func (c *Client) GetFeeRate(feeMethod FeeMethod) (res uint64, err error) {
 	err = c.Call("getfeerate", feeMethod, &res)
 	return
 }
+
+// SignMessage signs a message with a key
+func (c *Client) SignMessage(btcAddress, message string) (res string, err error) {
+	req := &SignMessageRequest{
+		Address: btcAddress,
+		Message: message,
+	}
+	err = c.Call("signmessage", req, &res)
+	return
+}
+
+// VerifyMessage verifies a signature
+func (c *Client) VerifyMessage(btcAddress, signature, message string) (res bool, err error) {
+	req := &VerifyMessageRequest{
+		Address:   btcAddress,
+		Signature: signature,
+		Message:   message,
+	}
+	err = c.Call("verifymessage", req, &res)
+	return
+}

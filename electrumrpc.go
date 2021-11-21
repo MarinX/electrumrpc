@@ -50,7 +50,15 @@ func (c *Client) Call(method string, params interface{}, result interface{}) err
 
 	defer resp.Body.Close()
 
-	return json.DecodeClientResponse(resp.Body, result)
+	var error RequestError
+	err = json.DecodeClientResponse(resp.Body, result, &error)
+	if err != nil {
+		return err
+	}
+	if error.Id != 0 {
+		return &error
+	}
+	return nil
 }
 
 // newRequest creates new HTTP POST request with Basic Auth headers

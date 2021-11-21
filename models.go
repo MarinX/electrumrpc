@@ -14,6 +14,15 @@ const (
 	FeeMethodMempool FeeMethod = "mempool"
 )
 
+type RequestError struct {
+	Id      uint64 `json:"code"`
+	Message string `json:"message"`
+}
+
+func (r *RequestError) Error() string {
+	return r.Message
+}
+
 // Balance model
 type Balance struct {
 	Confirmed   string `json:"confirmed"`
